@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>气球</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="balloons">
+        <div class="balloon" id="one"></div>
+        <div class="balloon" id="two"></div>
+        <div class="balloon" id="three"></div>
+        <div class="balloon" id="four"></div>
+        <div class="balloon" id="five"></div>
+      </div>
+      <br />
+      <p class="flicker">将康,幸福,快乐</p>
+    </div>
+    <script>
+      // 添加星星背景
+      const numStars = 627
+      const body = document.querySelector('body')
+
+      for (let i = 0; i < numStars; i++) {
+        let star = document.createElement('div')
+        star.className = 'star'
+        star.style.top = `${Math.random() * 100}%`
+        star.style.left = `${Math.random() * 100}%`
+        star.style.animationDelay = `${Math.random() * 2}s`
+        body.appendChild(star)
+      }
+      //烟花效果
+      function createFirework() {
+        const firework = document.createElement('div')
+        firework.className = 'firework'
+        firework.style.top = `${Math.random() * 100}%`
+        firework.style.left = `${Math.random() * 100}%`
+        firework.style.animationDelay = `${Math.random() * 2}s`
+        document.body.appendChild(firework)
+
+        firework.addEventListener('animationend', () => {
+          firework.remove()
+        })
+      }
+
+      setInterval(createFirework, 1000)
+    </script>
+  </body>
+</html>
+<style>
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #081216 0%, #0b1516 100%);
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+  }
+
+  .container {
+    text-align: center;
+    color: white;
+  }
+
+  h1,
+  p {
+    animation: fadeIn 3s ease-in-out infinite;
+  }
+
+  @keyframes fadeIn {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .flicker {
+    animation: flicker 1.5s infinite alternate;
+  }
+
+  @keyframes flicker {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .balloons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+
+  .balloon {
+    width: 100px;
+    height: 140px;
+    background-color: #ff6b6b;
+    border-radius: 50% 50% 50% 50%;
+    position: relative;
+    margin: 0 10px;
+    animation: float 5s ease-in-out infinite;
+    cursor: pointer;
+  }
+
+  #one {
+    background-color: #ff6b6b;
+    animation-delay: 0s;
+  }
+
+  #two {
+    background-color: #ffcc5c;
+    animation-delay: 2s;
+  }
+
+  #three {
+    background-color: #88d8b0;
+    animation-delay: 4s;
+  }
+
+  #four {
+    background-color: #ff9a9e;
+    animation-delay: 6s;
+  }
+
+  #five {
+    background-color: #c9cba3;
+    animation-delay: 8s;
+  }
+
+  .balloon::before {
+    content: '';
+    width: 2px;
+    height: 60px;
+    background: #aaa;
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes burst {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 1.5s infinite;
+  }
+
+  @keyframes twinkle {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  #bigBalloonButton {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #ffcc5c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    animation: fadeIn 2s forwards;
+  }
+
+  #bigBalloon {
+    width: 200px;
+    height: 280px;
+    background-color: #ff6b6b;
+    border-radius: 50%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: floatBig 5s ease-in-out infinite;
+    display: none;
+  }
+
+  @keyframes floatBig {
+    0% {
+      transform: translate(-50%, -50%) translateY(0);
+    }
+    50% {
+      transform: translate(-50%, -50%) translateY(-20px);
+    }
+    100% {
+      transform: translate(-50%, -50%) translateY(0);
+    }
+  }
+  .balloon:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  .firework {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: rgb(175, 133, 133);
+    border-radius: 50%;
+    animation: explode 1s forwards;
+  }
+
+  @keyframes explode {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(10);
+      opacity: 0;
+    }
+  }
+</style>
